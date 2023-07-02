@@ -1,32 +1,21 @@
 pipeline {
        agent any
-       tools{
-        maven 'maven'
-       }
+       environment {
+	PATH = "/usr/share/man/man1:$PATH"
+	}
 stages {
   stage('checkout stage') {
     steps {
       echo "chcked"
+	git 'https://github.com/patilghub/myrepo.git'
     }
   }
 
   stage('build stage') {
     steps {
-        sh "mvn clean package"
-    }
-    post{
-        ech "artifacts"
-    archiveArtifacts artifacts '**/targets/*.war'
+        sh "mvn clean install"
     }
   }
-
-  stage('deploy stage') {
-    steps {
-        deploy adapters: [tomcat9(credentialsId: '1cdce16d-d38c-4f2e-895a-9ed9c7145962', path: '', url: 'http://13.40.14.116:8080/')], contextPath: null, war: '**/.war'
-      
-    }
-  }
-
 }
 
 
