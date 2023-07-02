@@ -7,7 +7,7 @@ stages {
   stage('checkout stage') {
     steps {
       echo "chcked"
-	git 'https://github.com/patilghub/myrepo.git'
+	git 'https://github.com/patilghub/time-tracker.git'
     }
   }
 
